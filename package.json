@@ -1,20 +1,18 @@
 {
-  "name": "pulse-sms-web",
+  "name": "heart-sms-web",
   "version": "v1.3.6",
-  "description": "Pulse SMS - text from your computer.",
+  "description": "Heart SMS - text from your computer.",
   "license": "(Apache-2.0 AND MIT)",
   "author": {
-    "name": "Luke Klinker",
-    "email": "pulsesmsapp@gmail.com",
-    "url": "https://klinkerapps.com"
+    "name": "Thomas Anderson"
   },
-  "repository": "https://github.com/klinker-apps/pulse-sms-web",
+  "repository": "https://github.com/tnyeanderson/heart-sms-web",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "deploy": "npm run build; touch dist/CNAME; echo \"pulsesms.app\" > dist/CNAME; push-dir --dir=dist --branch=gh-pages --cleanup"
+    "deploy": "npm run build; touch dist/CNAME; echo \"heartsms.app\" > dist/CNAME; push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "@bugsnag/js": "^6.5.2",

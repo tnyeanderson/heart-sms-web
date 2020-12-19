@@ -1,6 +1,6 @@
 {
-  "name": "Pulse SMS",
-  "short_name": "Pulse",
+  "name": "Heart SMS",
+  "short_name": "Heart",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

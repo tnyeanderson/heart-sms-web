@@ -9,7 +9,7 @@ module.exports = {
     configureWebpack: {
         plugins: [
             new SWPrecacheWebpackPlugin({
-                cacheId: 'pulse-sms',
+                cacheId: 'heart-sms',
                 filename: 'service-worker.js',
                 staticFileGlobs: ['dist/**/*.{js,css}', '/'],
                 minify: true,

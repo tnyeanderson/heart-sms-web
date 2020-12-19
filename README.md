@@ -1,17 +1,12 @@
-# Pulse SMS - Vue.js Web App
+# Heart SMS - Vue.js Web App
 
-![header](artwork/header.png)
+Heart is a fork of Pulse SMS.
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fklinker-apps%2Fmessenger-web.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fklinker-apps%2Fmessenger-web?ref=badge_shield)
+The Pulse community was pretty great. This web app started out as a [third party, alternative client](https://github.com/Serubin/PulseClient), to the official Pulse SMS web app. It is built on [Vue.js](https://vuejs.org/). Big thanks to [Solomon Rubin](https://github.com/Serubin) for creating an awesome base.
 
-The Pulse community is pretty great. This web app started out as a [third party, alternative client](https://github.com/Serubin/PulseClient), to the official Pulse SMS web app. It is built on [Vue.js](https://vuejs.org/). Big thanks to [Solomon Rubin](https://github.com/Serubin) for creating an awesome base.
+This version of the web app is a fork of the official web app. As an open-source client, anyone is free to contribute and help improve the Heart experience. This web app has improved performance/load times, a cleaner architecture, and new features. It will be much easier to work with and improve, than the legacy web app.
 
-This version of the web app will be taking over as the official version, in the coming weeks/months. As an open-source client, anyone is free to contribute and help improve the Pulse experience. This web app has improved performance/load times, a cleaner architecture, and new features. It will be much easier to work with and improve, than the legacy web app.
-
-Before you will be able to use this, you should create a Pulse account from the [Android app](https://messenger.klinkerapps.com/overview/signup.html). To use this web app, you have two options:
-
-* Visit the hosted version of this web app, by opening https://pulsesms.app
-* Build and run the web app locally, or deploy it to your own hosting location, using the build steps below.
+Before you will be able to use this, you should create a Heart account from the [Android app](https://github.com/tnyeanderson/heart-sms-android). To use this web app, you have two should build and run the web app locally, or deploy it to your own hosting location, using the build steps below.
 
 ## Build Setup
 
@@ -39,15 +34,15 @@ npm run build --report
 
 ## Deploying to Production
 
-It is hosted in AWS S3. In order to deploy it, run `npm run build`. It will produce a `dist` directory. Put the `dist` directory content in Maple Media AWS S3 bucket named as pulsesms.app.
+This app is not ready for production at this time.
 
 ## Contributing
 
-Please fork this repository and contribute back using [pull requests](https://github.com/klinker-apps/pulse-sms-web/pulls). Features can be requested using [issues](https://github.com/klinker-apps/pulse-sms-issues/issues) on the Pulse SMS issue tracker/roadmap, rather than on the issues for this repo. I know there are some issues on this repo, right now. They will be migrated (or finished), as the app moves in to the production state.
+Please fork this repository and contribute back using [pull requests](https://github.com/tnyeanderson/heart-sms-web/pulls). Features can be requested using [issues](https://github.com/tnyeanderson/heart-sms-web/issues) on the Heart SMS issue tracker/roadmap. I know there are some issues on this repo, right now. They will be migrated (or finished), as the app moves in to the production state.
 
 Any code, comments, and critiques are appreciated.
 
-### Pulse Experiments
+### Heart Experiments
 
 From an end-user perspective, I am not a big fan of just filling out the settings menu. Little "tweak" preferences that the majority of users will not find helpful, probably will not be added to the app. Making new preferences means a much higher overhead for new users, and a more complicated experience for current users. Many users will not understand "one-off" preferences and they will just confuse them, which is a bad user experience.
 
@@ -58,4 +53,3 @@ This `/experiments` page will never be advertised to end-users. No one should as
 ## License Information
 Licensed Under Apache License Version 2 (Current Primary License) and MIT License. See additional information in the [LICENSE file](./LICENSE)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fklinker-apps%2Fmessenger-web.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fklinker-apps%2Fmessenger-web?ref=badge_large)

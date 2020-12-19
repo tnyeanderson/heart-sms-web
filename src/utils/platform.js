@@ -2,7 +2,7 @@ export default class Platform {
 
     static isNativeDesktop() {
         let userAgent = navigator.userAgent.toLowerCase();
-        return userAgent.indexOf("electron") > 0 && userAgent.indexOf("pulse-sms") > 0;
+        return userAgent.indexOf("electron") > 0 && userAgent.indexOf("heart-sms") > 0;
     }
 
     static isChromeExtension() {

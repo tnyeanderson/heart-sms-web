@@ -174,7 +174,7 @@ export default {
             } else if (this.$store.state.theme_global_default) {
                 return this.$store.state.theme_global_default;
             } else {
-                return "#1775D2";
+                return "#E91E63";
             }
         },
 
@@ -271,7 +271,7 @@ export default {
     },
 
     beforeCreate () {
-        this.$store.commit('title', "Pulse SMS");
+        this.$store.commit('title', "Heart SMS");
 
         // If logged in (account_id) then setup crypto
         if(this.$store.state.account_id != '') {
@@ -549,7 +549,7 @@ export default {
             if (title.length > 0) {
                 document.title = `${unread} ${title}`;
             } else {
-                document.title = `${unread} Pulse SMS`;
+                document.title = `${unread} Heart SMS`;
             }
         },
 
@@ -678,7 +678,7 @@ export default {
 
 <style lang="scss">
 
-    @import "./assets/scss/material.teal-orange.min.css";
+    @import "./assets/scss/material.min.css";
     @import "./assets/scss/_vars.scss";
 
     body {
@@ -743,11 +743,11 @@ export default {
                 height: 25px;
 
                 &.logo {
-                    background: url(assets/images/vector/pulse.svg) 0 0 no-repeat;
+                    background: url(assets/images/vector/heart.svg) 0 0 no-repeat;
                 }
 
                 &.logo_dark {
-                    background: url(assets/images/vector/pulse-dark.svg) 0 0 no-repeat;
+                    background: url(assets/images/vector/heart-dark.svg) 0 0 no-repeat;
                 }
 
                 &.menu_toggle {
@@ -957,7 +957,7 @@ export default {
 
         #logo .icon {
             &.logo {
-                background: url(assets/images/vector/pulse-dark.svg) 0 0 no-repeat !important;
+                background: url(assets/images/vector/heart-dark.svg) 0 0 no-repeat !important;
             }
 
             &.menu_toggle {
