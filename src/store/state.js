@@ -37,9 +37,9 @@ export const state = {
     conversations: JSON.parse( window.localStorage.getItem(KEYS.CONVERSATIONS) || '{}' ),
 
     theme_base: JSON.parse( window.localStorage.getItem(KEYS.THEME.BASE) || "\"light\"" ),
-    theme_global_default: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_DEFAULT) || "\"#E91E63\"" ),
-    theme_global_dark: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_DARK) || "\"#D21455\"" ),
-    theme_global_accent: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_ACCENT) || "\"#7C4DFF\"" ),
+    theme_global_default: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_DEFAULT) || "\"#EB5C72\"" ),
+    theme_global_dark: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_DARK) || "\"#BE364A\"" ),
+    theme_global_accent: JSON.parse( window.localStorage.getItem(KEYS.THEME.GLOBAL_ACCENT) || "\"#673AB7\"" ),
     theme_use_global: JSON.parse( window.localStorage.getItem(KEYS.THEME.USE_GLOBAL) || "false" ),
     theme_apply_appbar_color: JSON.parse( window.localStorage.getItem(KEYS.THEME.APPLY_APPBAR_COLOR) || "true" ),
     theme_conversation_categories: JSON.parse( window.localStorage.getItem(KEYS.THEME.CONVERSATION_CATEGORIES) || "true" ),
