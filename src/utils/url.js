@@ -64,9 +64,12 @@ export default class Url {
 
     static get (name) {
         let protocol = "http://";
-        if(name == "websocket")
-            protocol = "wss://";
+        let baseurl = Url.getBaseUrl();
+        if(name == "websocket") {
+            protocol = "ws://";
+            baseurl = "localhost:5050/";
+        }
 
-        return protocol + Url.getBaseUrl() + Url.getApiVersion() + Url.urls[name];
+        return protocol + baseurl + Url.getApiVersion() + Url.urls[name];
     }
 }
