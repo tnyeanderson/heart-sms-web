@@ -21,6 +21,7 @@ export default class Url {
         "settings":             "accounts/settings/",
         "websocket":            "stream",
         "media":                "media/",
+        "add_media":            "media/add",
         "contacts":             "contacts/simple/",
         "remove_contact":       "contacts/remove_ids/",
         "blacklists":           "blacklists",
@@ -44,7 +45,7 @@ export default class Url {
     }
 
     static getBaseUrl () {
-        return "api.messenger.klinkerapps.com/";
+        return "localhost:5000/";
     }
 
     static getApiVersion () {
@@ -62,7 +63,7 @@ export default class Url {
     }
 
     static get (name) {
-        let protocol = "https://";
+        let protocol = "http://";
         if(name == "websocket")
             protocol = "wss://";
 

@@ -311,7 +311,7 @@ export default {
         this.handleResize(); // Get initial margin size
 
         // Setup firebase
-        Util.firebaseConfig();
+        // Util.firebaseConfig();
 
         // Construct colors object from saved global theme
         const colors = {

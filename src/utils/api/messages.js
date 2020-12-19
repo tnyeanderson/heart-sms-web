@@ -2,8 +2,8 @@ import Vue from 'vue';
 import axios from 'axios';
 import store from '@/store/';
 import joypixels from 'emoji-toolkit';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+//import firebase from 'firebase/app';
+//import 'firebase/storage';
 import ImageCompressor from '@xkeshi/image-compressor';
 import { Api, Util, Url, Crypto, SessionCache, Platform } from '@/utils/';
 
@@ -151,24 +151,31 @@ export default class Messages {
                 encryptedFile = new TextEncoder('utf-8').encode(encryptedFile);
 
                 const id = Api.generateId();
-                const account_id = store.state.account_id;
 
-                const storageRef = firebase.storage().ref();
-                const accountRef = storageRef.child(account_id);
-                const messageRef = accountRef.child(id + "");
+                var constructed_url = Url.get('add_media') + Url.getAccountParam();
+                var request = {
+                    message_id: id,
+                    data: encryptedFile
+                };
 
-                // Add to firebase
-                messageRef.put(encryptedFile).then(() => {
-                    // Send message
-                    send(file, id);
+                // Add to db
+                new Promise((resolve) => {
+                    axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+                        .then(response => {
+                            // Send message
+                            send(file, id);
 
-                    // Make url
-                    const constructed_url = Url.get('media') + id + Url.getAccountParam();
-                    axios.get(constructed_url);
+                            // Make url
+                            // TODO: What is the point of this??
+                            const constructed_url = Url.get('media') + id + Url.getAccountParam();
+                            axios.get(constructed_url);
 
-                    // Empty loaded media
-                    store.commit('loaded_media', null);
-                    store.commit('media_sending', false);
+                            // Empty loaded media
+                            store.commit('loaded_media', null);
+                            store.commit('media_sending', false);
+
+                            resolve(response);
+                        });
                 });
             };
 

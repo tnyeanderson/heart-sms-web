@@ -1,6 +1,6 @@
 import jump from 'jump.js';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+//import firebase from 'firebase/app';
+//import 'firebase/storage';
 import { Notifications } from '@/utils';
 import store from '@/store/';
 import router from '@/router/';
@@ -226,17 +226,6 @@ export default class Util {
         });
 
         // Handle redirect to settings page
-    }
-
-    static firebaseConfig () {
-        const config = {
-            apiKey: "AIzaSyB0pMWyfvde4mbKO20t23EEGECEb5itD7I",
-            authDomain: "messenger-42616.firebaseapp.com",
-            databaseURL: "https://messenger-42616.firebaseio.com",
-            storageBucket: "messenger-42616.appspot.com",
-        };
-
-        firebase.initializeApp(config);
     }
 
     // Set text color to meet WCAG 2.0 Success Criterion 1.4.3
