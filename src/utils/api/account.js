@@ -1,15 +1,17 @@
 import axios from 'axios';
 import store from '@/store/';
-import { Api, Util, Url } from '@/utils/';
+import { Api, Util, Url, Crypto} from '@/utils/';
 
 export default class Account {
 
     static login(username, password) {
+        var hashedPassword = Crypto.getHash(password);
+
         const promise = new Promise((resolve, reject) => {
             const constructed_url = Url.get('login');
             const request = {
                 username,
-                password
+                hashedPassword
             };
 
             axios.post(constructed_url, request, { 'Content-Type': 'application/json' })

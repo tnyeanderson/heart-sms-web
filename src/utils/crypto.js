@@ -308,6 +308,10 @@ export default class Crypto {
         return out;
     }
 
+    static getHash(strToHash) {
+        return Hash(strToHash, { algorithm: 'sha256' });
+    }
+
     static random128Hex() {
         function random16Hex () {
             return (0x10000 | Math.random() * 0x10000).toString(16).substr(1);
