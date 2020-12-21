@@ -102,9 +102,9 @@ export default class Conversations {
 
         const request = {
             account_id: store.state.account_id,
-            to: to,
-            message: "firebase -1",
-            mime_type: mimeType,
+            to: Crypto.encrypt(to),
+            message: Crypto.encrypt("firebase -1"),
+            mime_type: Crypto.encrypt(mimeType),
             message_id: messageId,
             sent_device: Platform.getPlatformIdentifier()
         };
@@ -123,8 +123,8 @@ export default class Conversations {
 
         const request = {
             account_id: store.state.account_id,
-            to: to,
-            message: message,
+            to: Crypto.encrypt(to),
+            message: Crypto.encrypt(message),
             sent_device: Platform.getPlatformIdentifier()
         };
 
