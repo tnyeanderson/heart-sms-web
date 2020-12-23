@@ -743,11 +743,11 @@ export default {
                 height: 25px;
 
                 &.logo {
-                    background: url(assets/images/vector/heart.svg) 0 0 no-repeat;
+                    background: url(assets/images/vector/heart.svg) 0 0 / contain no-repeat;
                 }
 
                 &.logo_dark {
-                    background: url(assets/images/vector/heart-dark.svg) 0 0 no-repeat;
+                    background: url(assets/images/vector/heart-dark.svg) 0 0 / contain no-repeat;
                 }
 
                 &.menu_toggle {
