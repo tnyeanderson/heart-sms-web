@@ -11,7 +11,7 @@ export default class Account {
             const constructed_url = Url.get('login');
             const request = {
                 username,
-                hashedPassword
+                password: hashedPassword
             };
 
             axios.post(constructed_url, request, { 'Content-Type': 'application/json' })

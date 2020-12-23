@@ -34,8 +34,12 @@ export default class Blacklist {
         phone: (number) => {
             let request = {
                 account_id: store.state.account_id,
-                device_id: Api.generateId(),
-                phone_number: Crypto.encrypt(number)
+                blacklists: [
+                    {
+                        device_id: Api.generateId(),
+                        phone_number: Crypto.encrypt(number)
+                    }
+                ]
             };
 
             let constructed_url = Url.get('create_blacklist');
@@ -50,8 +54,12 @@ export default class Blacklist {
         phrase: (phrase) => {
             let request = {
                 account_id: store.state.account_id,
-                device_id: Api.generateId(),
-                phrase: Crypto.encrypt(phrase)
+                blacklists: [
+                    {
+                        device_id: Api.generateId(),
+                        phrase: Crypto.encrypt(phrase)
+                    }
+                ]
             };
 
             let constructed_url = Url.get('create_blacklist');

@@ -5,6 +5,7 @@ import Hash from 'object-hash';
 import store from '@/store';
 import joypixels from 'emoji-toolkit';
 import { Util } from '@/utils';
+const cryptojs = require('crypto');
 
 export default class Crypto {
     /**
@@ -308,8 +309,15 @@ export default class Crypto {
         return out;
     }
 
+    /**
+     * getHash
+     * Creates SHA256 hash of a string
+     *
+     * @param strToHash - password or other string
+     * @return SHA256 hash
+     */
     static getHash(strToHash) {
-        return Hash(strToHash, { algorithm: 'sha256' });
+        return cryptojs.createHash('sha256').update(strToHash).digest('hex');
     }
 
     static random128Hex() {

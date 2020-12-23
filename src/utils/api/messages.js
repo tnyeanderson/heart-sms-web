@@ -64,15 +64,19 @@ export default class Messages {
         // Define request
         let request = {
             account_id: account_id,
-            device_id: id,
-            device_conversation_id: thread_id,
-            message_type: 2,
-            data: encrypted,
-            timestamp: timestamp,
-            mime_type: Crypto.encrypt(mime_type),
-            read: true,
-            seen: true,
-            sent_device: Platform.getPlatformIdentifier()
+            messages: [
+                {
+                    device_id: id,
+                    device_conversation_id: thread_id,
+                    message_type: 2,
+                    data: encrypted,
+                    timestamp: timestamp,
+                    mime_type: Crypto.encrypt(mime_type),
+                    read: true,
+                    seen: true,
+                    sent_device: Platform.getPlatformIdentifier()
+                }
+            ]
         };
 
         let conversationRequest = {

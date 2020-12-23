@@ -33,13 +33,17 @@ export default class ScheduledMessages {
     static create(to, message, time, title, repeat) {
         let request = {
             account_id: store.state.account_id,
-            device_id: Api.generateId(),
-            to: Crypto.encrypt(to),
-            data: Crypto.encrypt(message),
-            mime_type: Crypto.encrypt("text/plain"),
-            title: Crypto.encrypt(title.trim().length == 0 ? to : title.trim()),
-            timestamp: time,
-            repeat: repeat
+            scheduled_messages: [
+                {
+                    device_id: Api.generateId(),
+                    to: Crypto.encrypt(to),
+                    data: Crypto.encrypt(message),
+                    mime_type: Crypto.encrypt("text/plain"),
+                    title: Crypto.encrypt(title.trim().length == 0 ? to : title.trim()),
+                    timestamp: time,
+                    repeat: repeat
+                }
+            ]
         };
 
         let constructed_url = Url.get('create_scheduled');
