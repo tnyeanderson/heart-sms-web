@@ -1,5 +1,8 @@
 import store from '@/store';
 
+const api_base_url = process.env.VUE_APP_API_BASE_URL || "localhost:5000";
+const ws_base_url = process.env.VUE_APP_WEBSOCKETS_BASE_URL || "localhost:5050";
+
 export default class Url {
     static urls = {
         "login":                "accounts/login/",
@@ -45,7 +48,7 @@ export default class Url {
     }
 
     static getBaseUrl () {
-        return "localhost:5000/";
+        return api_base_url + '/';
     }
 
     static getApiVersion () {
@@ -67,7 +70,7 @@ export default class Url {
         let baseurl = Url.getBaseUrl();
         if(name == "websocket") {
             protocol = "ws://";
-            baseurl = "localhost:5050/";
+            baseurl = ws_base_url;
         }
 
         return protocol + baseurl + Url.getApiVersion() + Url.urls[name];
