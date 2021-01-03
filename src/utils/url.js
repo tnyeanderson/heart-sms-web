@@ -47,8 +47,12 @@ export default class Url {
         "remove_auto_reply":    "auto_replies/remove/",
     }
 
-    static getBaseUrl () {
-        return api_base_url + '/';
+    static getBaseUrl (isWebsocket) {
+        if (isWebsocket) {
+            return 'ws://' + ws_base_url + '/';
+        }
+
+        return 'http://' + api_base_url + '/';
     }
 
     static getApiVersion () {
@@ -66,13 +70,11 @@ export default class Url {
     }
 
     static get (name) {
-        let protocol = "http://";
         let baseurl = Url.getBaseUrl();
         if(name == "websocket") {
-            protocol = "ws://";
-            baseurl = ws_base_url;
+            baseurl = Url.getBaseUrl(true);
         }
 
-        return protocol + baseurl + Url.getApiVersion() + Url.urls[name];
+        return baseurl + Url.getApiVersion() + Url.urls[name];
     }
 }
