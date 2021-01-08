@@ -106,6 +106,9 @@ export default class MediaLoader {
 
                     console.log("fetching media from web");
 
+                    // get media out of json response
+                    const imageData = data.data.data;
+
                     // One user was having issues with the web app freezing. It was coming from decrypting images...
                     // with data.length on the blob:
 
@@ -114,12 +117,9 @@ export default class MediaLoader {
                     // good image size:        124,914
 
                     // TODO: Now that we are loading things off on the worker thread, can this restriction be removed?
-                    if (data.data.length > 10000000) {
+                    if (imageData.length > 10000000) {
                         return reject(null);
                     }
-
-                    // get data out of json response
-                    const imageData = data.data;
 
                     // Reject empty response
                     if (!imageData || imageData == null)
