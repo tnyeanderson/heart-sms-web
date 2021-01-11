@@ -1,4 +1,5 @@
-FROM node:14-buster
+## develop stage
+FROM node:14-alpine as develop-stage
 
 # Create app directory
 WORKDIR /app
@@ -7,11 +8,17 @@ WORKDIR /app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-
 RUN npm install
-
-# Bundle app source
 COPY . .
 
-EXPOSE 8081
-CMD [ "npm", "run", "serve" ]
+
+## build stage
+FROM develop-stage as build-stage
+RUN npm run build
+
+## production stage
+FROM nginx:alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+

@@ -4,7 +4,7 @@ module.exports = {
     devServer: {
         port: 8081
     },
-    runtimeCompiler: true,
+    runtimeCompiler: false,
     lintOnSave: true,
     configureWebpack: {
         plugins: [

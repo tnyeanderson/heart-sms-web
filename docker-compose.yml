@@ -7,7 +7,7 @@ services:
     image: heartsms/heart-sms-web
     restart: always
     ports:
-      - "8081:8081"
+      - "127.0.0.1:8081:80"
     environment:
       - VUE_APP_API_BASE_URL=localhost:5000
       - VUE_APP_WEBSOCKETS_BASE_URL=localhost:5050
