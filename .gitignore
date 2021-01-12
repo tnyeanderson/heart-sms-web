@@ -2,6 +2,7 @@
 node_modules/
 dist/
 public/config/web-config.json
+heart-web-config/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
