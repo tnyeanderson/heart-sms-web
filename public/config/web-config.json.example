@@ -1,0 +1,7 @@
+{
+    "api": {
+        "baseUrl": "localhost:5000",
+        "websocketsUrl": "localhost:5050",
+        "useSSL": false
+    }
+}

@@ -1,0 +1,7 @@
+web.test.sc {
+  route /* {
+    reverse_proxy http://localhost:8081
+  }
+
+  tls internal
+}

@@ -1,7 +1,19 @@
 import store from '@/store';
+import axios from 'axios';
 
-const api_base_url = process.env.VUE_APP_API_BASE_URL || "localhost:5000";
-const ws_base_url = process.env.VUE_APP_WEBSOCKETS_BASE_URL || "localhost:5050";
+// Default config
+var apiConfig = {
+    baseUrl: "localhost:5000",
+    websocketsUrl: "localhost:5050",
+    useSSL: false
+};
+
+// Get config dynamically
+axios.get("/config/web-config.json").then(res => {
+    apiConfig.baseUrl = res.data.api.baseUrl || apiConfig.baseUrl;
+    apiConfig.websocketsUrl = res.data.api.websocketsUrl || apiConfig.websocketsUrl;
+    apiConfig.useSSL = res.data.api.useSSL || apiConfig.useSSL;
+});
 
 export default class Url {
     static urls = {
@@ -49,10 +61,10 @@ export default class Url {
 
     static getBaseUrl (isWebsocket) {
         if (isWebsocket) {
-            return 'ws://' + ws_base_url + '/';
+            return this.getProtocol(isWebsocket) + apiConfig.websocketsUrl + '/';
         }
 
-        return 'http://' + api_base_url + '/';
+        return this.getProtocol() + apiConfig.baseUrl + '/';
     }
 
     static getApiVersion () {
@@ -69,12 +81,23 @@ export default class Url {
         };
     }
 
+    static getProtocol (isWebsocket) {
+        if (isWebsocket) {
+            return (apiConfig.useSSL) ? "wss://" : "ws://";
+        } else {
+            return (apiConfig.useSSL) ? "https://" : "http://";
+        }
+    }
+
     static get (name) {
-        let baseurl = Url.getBaseUrl();
-        if(name == "websocket") {
-            baseurl = Url.getBaseUrl(true);
+        var isWebsocket = (name == "websocket");
+
+        // If SSL is not on in production, just fail 
+        if (process.env.NODE_ENV === 'production' && !apiConfig.useSSL) {
+            console.log("SSL is required in production when calling the API. No calls will be made");
+            return false;
         }
 
-        return baseurl + Url.getApiVersion() + Url.urls[name];
+        return Url.getBaseUrl(isWebsocket) + Url.getApiVersion() + Url.urls[name];
     }
 }

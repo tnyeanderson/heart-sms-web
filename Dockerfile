@@ -9,7 +9,11 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 RUN npm install
+
 COPY . .
+
+# Override with default config file
+RUN mv public/config/web-config.json.example public/config/web-config.json
 
 
 ## build stage
@@ -19,6 +23,13 @@ RUN npm run build
 ## production stage
 FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Move files to config folder for bind mount
+RUN cp /usr/share/nginx/html/config/web-config.json /root/web-config.json.example
+COPY --from=build-stage /app/entrypoint.sh /root/entrypoint.sh
+RUN chmod +x /root/entrypoint.sh
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+ENTRYPOINT ["/root/entrypoint.sh"]
 

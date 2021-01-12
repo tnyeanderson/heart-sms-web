@@ -10,6 +10,8 @@ Before you will be able to use this, you should create a Heart account from the 
 
 ## Build Setup
 
+First, copy `public/config/web-config.json.example` to `public/config/web-config.json` and edit as needed. The defaults are set to the default local development ports. In production, `useSSL` *must* be true and there should be hostnames instead of IPs for your production backend. If using the Caddyfile provided, the `baseUrl` and `websocketsUrl` are the same.
+
 Getting up and running is very easy. You will need `npm` installed:
 
 ```bash
@@ -20,7 +22,7 @@ npm install
 npm run serve
 ```
 
-The `npm serve` command will serve a local version of the app. The local version of the web app will still use the same backend endpoints as the hosted version, so no additional configuration is required.
+The `npm serve` command will serve a local version of the app. The local version of the web app will still use the same backend endpoints from `public/web-config.json`, so no additional configuration is required.
 
 If you want to build the app for a production environment, that you could deploy:
 
@@ -34,7 +36,17 @@ npm run build --report
 
 ## Deploying to Production
 
-This app is not ready for production at this time.
+Deploy to production using `docker-compose.yml` and the given `Caddyfile` (change to your production URLs and set up tls). Then:
+
+```
+docker-compose up -d
+
+# Edit ./heart-web-config/web-config.json
+
+caddy start
+```
+
+Deployed!
 
 ## Contributing
 
