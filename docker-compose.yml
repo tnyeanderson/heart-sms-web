@@ -4,7 +4,7 @@ version: "3.1"
 services:
   heart-sms-web:
     container_name: heart-sms-web
-    image: heartsms/heart-sms-web:staged
+    image: heartsms/heart-sms-web
     restart: always
     ports:
       - "127.0.0.1:8081:80"
