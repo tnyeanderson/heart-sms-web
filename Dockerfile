@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Override with default config file
-RUN mv public/config/web-config.json.example public/config/web-config.json
+RUN mv public/config/web-config.js.example public/config/web-config.js
 
 
 ## build stage
@@ -25,7 +25,7 @@ FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Move files to config folder for bind mount
-RUN cp /usr/share/nginx/html/config/web-config.json /root/web-config.json.example
+RUN cp /usr/share/nginx/html/config/web-config.js /root/web-config.js.example
 COPY --from=build-stage /app/entrypoint.sh /root/entrypoint.sh
 RUN chmod +x /root/entrypoint.sh
 
