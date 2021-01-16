@@ -1,19 +1,4 @@
 import store from '@/store';
-import axios from 'axios';
-
-// Default config
-var apiConfig = {
-    baseUrl: "localhost:5000",
-    websocketsUrl: "localhost:5050",
-    useSSL: false
-};
-
-// Get config dynamically
-axios.get("/config/web-config.json").then(res => {
-    apiConfig.baseUrl = res.data.api.baseUrl || apiConfig.baseUrl;
-    apiConfig.websocketsUrl = res.data.api.websocketsUrl || apiConfig.websocketsUrl;
-    apiConfig.useSSL = res.data.api.useSSL || apiConfig.useSSL;
-});
 
 export default class Url {
     static urls = {
@@ -61,10 +46,10 @@ export default class Url {
 
     static getBaseUrl (isWebsocket) {
         if (isWebsocket) {
-            return this.getProtocol(isWebsocket) + apiConfig.websocketsUrl + '/';
+            return this.getProtocol(isWebsocket) + store.state.config.api.websocketsUrl + '/';
         }
 
-        return this.getProtocol() + apiConfig.baseUrl + '/';
+        return this.getProtocol() + store.state.config.api.baseUrl + '/';
     }
 
     static getApiVersion () {
@@ -83,9 +68,9 @@ export default class Url {
 
     static getProtocol (isWebsocket) {
         if (isWebsocket) {
-            return (apiConfig.useSSL) ? "wss://" : "ws://";
+            return (store.state.config.api.useSSL) ? "wss://" : "ws://";
         } else {
-            return (apiConfig.useSSL) ? "https://" : "http://";
+            return (store.state.config.api.useSSL) ? "https://" : "http://";
         }
     }
 
@@ -93,7 +78,7 @@ export default class Url {
         var isWebsocket = (name == "websocket");
 
         // If SSL is not on in production, just fail 
-        if (process.env.NODE_ENV === 'production' && !apiConfig.useSSL) {
+        if (process.env.NODE_ENV === 'production' && !store.state.config.api.useSSL) {
             console.log("SSL is required in production when calling the API. No calls will be made");
             return false;
         }

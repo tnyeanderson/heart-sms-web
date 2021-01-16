@@ -273,6 +273,11 @@ export default {
     beforeCreate () {
         this.$store.commit('title', "Heart SMS");
 
+        // Store the configuration from web-config.js
+        // Since heartConfig is defined in a page loaded from <head>, we need to disable the linter
+        /* eslint-disable */
+        this.$store.commit('config', Object.freeze(JSON.parse(JSON.stringify(heartConfig))));
+
         // If logged in (account_id) then setup crypto
         if(this.$store.state.account_id != '') {
             Crypto.setupAes();
@@ -414,7 +419,7 @@ export default {
                     return;
 
                 // If last ping is within 15 seconds, ignore
-                if (last_ping > (Date.now() / 1000 >> 0) - 15)
+                if (last_ping > (Date.now() / 1000 >> 0) - 30)
                     return;
 
                 // Else, open new API and force refresh
@@ -426,7 +431,7 @@ export default {
 
                 // TODO slack like reconnection process
 
-            }, 15 * 1000);
+            }, 30 * 1000);
         },
 
         /**

@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { Api, Url, Crypto } from '@/utils/';
 
 export default class Folders {
     static get() {
         let constructed_url = Url.get('folders') + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     response = response.data;
 
@@ -26,6 +25,6 @@ export default class Folders {
 
     static delete(id) {
         let constructed_url = Url.get('remove_folder') + id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 }

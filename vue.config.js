@@ -3,7 +3,9 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 module.exports = {
     devServer: {
         port: 8081,
-        disableHostCheck: true
+        disableHostCheck: true,
+        hot: false,
+        liveReload: false
     },
     runtimeCompiler: false,
     lintOnSave: true,

@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import axios from 'axios';
 import store from '@/store/';
 import joypixels from 'emoji-toolkit';
 //import firebase from 'firebase/app';
@@ -18,7 +17,7 @@ export default class Messages {
 
         const promise = new Promise((resolve, reject) => {
             if (!SessionCache.hasMessages(conversation_id) || offset > 0) {
-                axios.get(constructed_url)
+                Api.get(constructed_url)
                     .then(response => {
                         response = response.data;
 
@@ -46,7 +45,7 @@ export default class Messages {
 
     static delete(id) {
         let constructed_url = Url.get('remove_message') + id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static send(data, mime_type, thread_id, message_id = null) {
@@ -88,11 +87,11 @@ export default class Messages {
 
         // Update on servers
         let constructed_url = Url.get('add_message');
-        axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+        Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
             .catch(response => console.log(response));
 
         constructed_url = Url.get('update_conversation') + thread_id;
-        axios.post(constructed_url, conversationRequest, { 'Content-Type': 'application/json' })
+        Api.post(constructed_url, conversationRequest, { 'Content-Type': 'application/json' })
             .catch(response => console.log(response));
 
         // Submit event
@@ -114,7 +113,7 @@ export default class Messages {
         get: (image_id) => {
             const constructed_url = Url.get('media') + image_id + Url.getAccountParam();
             const promise = new Promise((resolve, reject) => {
-                axios.get(constructed_url)
+                Api.get(constructed_url)
                     .then(response => resolve(response))
                     .catch(response => Api.rejectHandler(response, reject));
             });
@@ -164,7 +163,7 @@ export default class Messages {
 
                 // Add to db
                 new Promise((resolve) => {
-                    axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+                    Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                         .then(response => {
                             // Send message
                             send(file, id);
@@ -172,7 +171,7 @@ export default class Messages {
                             // Make url
                             // TODO: What is the point of this??
                             const constructed_url = Url.get('media') + id + Url.getAccountParam();
-                            axios.get(constructed_url);
+                            Api.get(constructed_url);
 
                             // Empty loaded media
                             store.commit('loaded_media', null);

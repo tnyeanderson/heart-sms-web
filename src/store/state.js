@@ -1,9 +1,11 @@
 import Vue from 'vue';
 
 export const KEYS  = {
+    CONFIG: 'config',
     ACCOUNT_ID: 'account_id',
     HASH: 'hash',
     SALT: 'salt',
+    CLIENT_ID: null,
     CONTACTS: 'contacts',
     COMPOSE_CONTACTS: 'compose_contacts',
     CONVERSATIONS: 'conversations',
@@ -52,6 +54,7 @@ export const state = {
     subscription_type: window.localStorage.getItem(KEYS.SUBSCRIPTION_TYPE) || 1,
 
     /* Per session */
+    config: {},
     key: '',
     aes: '',
     full_theme: true,
@@ -74,6 +77,7 @@ export const state = {
 
     offline: !navigator.onLine,
 
+    client_id: JSON.parse(window.localStorage.getItem(KEYS.CLIENT_ID) || null),
     last_ping: null,
     last_passcode_entry: null,
 
@@ -92,6 +96,7 @@ export const getters = {
 
 export const mutations = {
     title: (state, title) => state.title = title,
+    config: (state, config) => state.config = config,
     loading: (state, loading) => state.loading = loading,
     hotkey_navigation: (state, hotkey_navigation) => state.hotkey_navigation = hotkey_navigation,
     unread_count: (state, unread_count) => state.unread_count = unread_count,
@@ -123,6 +128,7 @@ export const mutations = {
     colors_accent: (state, colors_accent) => state.colors_accent = colors_accent,
     loaded_media: (state, loaded_media) => state.loaded_media = loaded_media,
     media_sending: (state, media_sending) => state.media_sending = media_sending,
+    client_id: (state, client_id) => state.client_id = client_id,
     last_ping: (state, last_ping) => state.last_ping = last_ping,
     last_passcode_entry: (state, last_passcode_entry) => state.last_passcode_entry = last_passcode_entry,
     session_conversations: (state, session_conversations) => state.session_conversations = session_conversations,

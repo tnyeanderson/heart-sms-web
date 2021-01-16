@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Api, Url, Crypto, SessionCache } from '@/utils/';
 
 export default class Contacts {
@@ -14,7 +13,7 @@ export default class Contacts {
             }
 
             function queryContacts(pageLimit, totalLimit) {
-                axios.get(constructed_url + "&limit=" + pageLimit + "&offset=" + contacts.length).then(response => {
+                Api.get(constructed_url + "&limit=" + pageLimit + "&offset=" + contacts.length).then(response => {
                     response = response.data;
 
                     // Decrypt contact items
@@ -56,7 +55,7 @@ export default class Contacts {
 
     static delete(id) {
         let constructed_url = Url.get('remove_contact') + id + Url.getAccountParam();
-        axios.post(constructed_url)
+        Api.post(constructed_url)
             .catch(response => Api.rejectHandler(response));
     }
 }

@@ -17,7 +17,13 @@ export default class Stream {
      * Open reconnecting websocket.
      */
     open() {
-        this.socket = new ReconnectingWebsocket(Url.get('websocket') + Url.getAccountParam());
+        // Generate a client id for graceful reconnection if we don't have one
+        if (!store.state.client_id)
+            store.commit('client_id', Math.floor(Math.random() * 10000));
+
+        console.log(Url.get('websocket') + Url.getAccountParam() + "&client_id=" + store.state.client_id);
+
+        this.socket = new ReconnectingWebsocket(Url.get('websocket') + Url.getAccountParam() + "&client_id=" + store.state.client_id);
 
         this.socket.addEventListener('open', () => {
             // Close connection on logout

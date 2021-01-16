@@ -1,4 +1,3 @@
-import axios from 'axios';
 import store from '@/store/';
 import { Api, Url, Crypto } from '@/utils/';
 
@@ -6,7 +5,7 @@ export default class Blacklist {
     static get() {
         let constructed_url = Url.get('blacklists') + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     response = response.data;
 
@@ -27,7 +26,7 @@ export default class Blacklist {
 
     static delete(id) {
         let constructed_url = Url.get('remove_blacklist') + id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static create = {
@@ -45,7 +44,7 @@ export default class Blacklist {
             let constructed_url = Url.get('create_blacklist');
 
             const promise = new Promise((resolve) => {
-                axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+                Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                     .then(response => { resolve(response) });
             });
 
@@ -65,7 +64,7 @@ export default class Blacklist {
             let constructed_url = Url.get('create_blacklist');
 
             const promise = new Promise((resolve) => {
-                axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+                Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                     .then(response => { resolve(response) });
             });
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import store from '@/store/';
 import { Api, Url, Crypto, SessionCache, Platform } from '@/utils/';
 
@@ -19,7 +18,7 @@ export default class Conversations {
 
         const promise = new Promise((resolve, reject) => {
             if (!SessionCache.hasConversations(index)) {
-                axios.get(constructed_url)
+                Api.get(constructed_url)
                     .then(response => {
                         response = response.data;
 
@@ -48,7 +47,7 @@ export default class Conversations {
     static getById(id) {
         let constructed_url = Url.get('conversation') + id + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     response = Crypto.decryptConversation(response.data);
                     if (response != null) {
@@ -63,20 +62,20 @@ export default class Conversations {
 
     static update(conversation_id, params) {
         let constructed_url = Url.get('update_conversation') + conversation_id;
-        axios.post(constructed_url, params, { 'Content-Type': 'application/json' })
+        Api.post(constructed_url, params, { 'Content-Type': 'application/json' })
             .catch(response => console.log(response));
     }
 
     static read(conversation_id) {
         // Read conversation
         let constructed_url = Url.get('read') + conversation_id + Url.getAccountParam();
-        axios.post(constructed_url)
+        Api.post(constructed_url)
             .catch((e) => Api.rejectHandler(e));
 
         // Dismiss notifiction
         constructed_url = Url.get('dismiss') + Url.getAccountParam()
             + "&id=" + conversation_id;
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static archive(conversation_id, archive) {
@@ -89,12 +88,12 @@ export default class Conversations {
         }
 
         constructed_url += conversation_id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static delete(conversation_id) {
         let constructed_url = Url.get('delete') + conversation_id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static createWithImage(to, messageId, mimeType) {
@@ -110,7 +109,7 @@ export default class Conversations {
         };
 
         const promise = new Promise((resolve, reject) => {
-            axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                 .then(response => resolve(response))
                 .catch(response => Api.rejectHandler(response, reject));
         });
@@ -129,7 +128,7 @@ export default class Conversations {
         };
 
         const promise = new Promise((resolve, reject) => {
-            axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                 .then(response => resolve(response))
                 .catch(response => Api.rejectHandler(response, reject));
         });

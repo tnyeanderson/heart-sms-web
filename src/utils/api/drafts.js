@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { Api, Url, Crypto } from '@/utils/';
 
 export default class Drafts {
     static get() {
         let constructed_url = Url.get('drafts') + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     response = response.data;
 
@@ -27,7 +26,7 @@ export default class Drafts {
     static getConversationDrafts(conversation_id) {
         let constructed_url = Url.get('drafts_conversation') + conversation_id + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     response = response.data;
 
@@ -48,7 +47,7 @@ export default class Drafts {
 
     static delete(conversation_id) {
         let constructed_url = Url.get('remove_drafts') + conversation_id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 
     static replace(conversation_id, draft) {
@@ -65,7 +64,7 @@ export default class Drafts {
         };
 
         const draftPromise = new Promise((resolve) => {
-            axios.post(constructed_url, draftRequest, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, draftRequest, { 'Content-Type': 'application/json' })
                 .then(response => { resolve(response) });
         });
 
@@ -87,7 +86,7 @@ export default class Drafts {
         let constructed_url = Url.get('create_drafts') + Url.getAccountParam();
 
         const promise = new Promise((resolve) => {
-            axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                 .then(response => { resolve(response) });
         });
 

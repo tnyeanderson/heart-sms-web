@@ -8,9 +8,9 @@ This version of the web app is a fork of the official web app. As an open-source
 
 Before you will be able to use this, you should create a Heart account from the [Android app](https://github.com/tnyeanderson/heart-sms-android). To use this web app, you have two should build and run the web app locally, or deploy it to your own hosting location, using the build steps below.
 
-## Build Setup
+## Build setup
 
-First, copy `public/config/web-config.json.example` to `public/config/web-config.json` and edit as needed. The defaults are set to the default local development ports. In production, `useSSL` *must* be true and there should be hostnames instead of IPs for your production backend. If using the Caddyfile provided, the `baseUrl` and `websocketsUrl` are the same.
+First, copy `public/config/web-config.js.example` to `public/config/web-config.js` and edit as needed. The defaults are set to the default local development ports. In production, `useSSL` *must* be true and there should be hostnames instead of IPs for your production backend. If using the Caddyfile provided, the `baseUrl` and `websocketsUrl` are the same (example: `api.heart.lan`).
 
 Getting up and running is very easy. You will need `npm` installed:
 
@@ -19,12 +19,12 @@ Getting up and running is very easy. You will need `npm` installed:
 npm install
 
 // start the server at localhost:8081
-npm run serve
+npm run start-dev
 ```
 
-The `npm serve` command will serve a local version of the app. The local version of the web app will still use the same backend endpoints from `public/web-config.json`, so no additional configuration is required.
+The `start-dev` command will serve a local version of the app. The local version of the web app will still use the same backend endpoints from `public/web-config.json`, so no additional configuration is required.
 
-If you want to build the app for a production environment, that you could deploy:
+If you want to build the app for a production environment (creating a `dist` folder), use the following:
 
 ```bash
 # build for production with minification
@@ -34,15 +34,21 @@ npm run build
 npm run build --report
 ```
 
-## Deploying to Production
+## 
 
-Deploy to production using `docker-compose.yml` and the given `Caddyfile` (change to your production URLs and set up tls). Then:
+## Deploying to production with Docker
+
+Clone the repo or just copy the `docker-compose.yml` and `Caddyfile`.
+
+Edit the `Caddyfile` with your production urls. Then, start the container:
 
 ```
 docker-compose up -d
+```
 
-# Edit ./heart-web-config/web-config.json
+Once the container is up and running, be sure to edit `./heart-web-config/web-config.js` as explained in "Build setup" with your urls. Then start caddy:
 
+```
 caddy start
 ```
 

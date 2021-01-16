@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { Api, Url } from '@/utils/';
 
 export default class Devices {
     static get() {
         let constructed_url = Url.get('devices') + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -17,6 +16,6 @@ export default class Devices {
 
     static delete(id) {
         let constructed_url = Url.get('remove_device') + id + Url.getAccountParam();
-        axios.post(constructed_url);
+        Api.post(constructed_url);
     }
 }

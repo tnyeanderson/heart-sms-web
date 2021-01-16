@@ -1,4 +1,3 @@
-import axios from 'axios';
 import store from '@/store/';
 import { Api, Util, Url, Crypto} from '@/utils/';
 
@@ -14,7 +13,7 @@ export default class Account {
                 password: hashedPassword
             };
 
-            axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                 .then((response) => resolve(response))
                 .catch((error) => reject(error));
 
@@ -26,7 +25,7 @@ export default class Account {
     static get() {
         const constructed_url = Url.get('account_stats') + Url.getAccountParam();
         const promise = new Promise((resolve, reject) => {
-            axios.get(constructed_url)
+            Api.get(constructed_url)
                 .then((response) => resolve(response))
                 .catch((error) => reject(error));
         });
@@ -38,7 +37,7 @@ export default class Account {
         get: () => {
             let constructed_url = Url.get('settings') + Url.getAccountParam();
             const promise = new Promise((resolve, reject) => {
-                axios.get(constructed_url)
+                Api.get(constructed_url)
                     .then(response => {
                         response = response.data;
 
@@ -76,7 +75,7 @@ export default class Account {
                 + "&value=" + value;
 
             new Promise((resolve, reject) => {
-                axios.post(constructed_url, Url.getAccountPayload(),
+                Api.post(constructed_url, Url.getAccountPayload(),
                     { 'Content-Type': 'application/json' })
                     .then(() => resolve(true))
                     .catch(response => Api.rejectHandler(response, reject));
