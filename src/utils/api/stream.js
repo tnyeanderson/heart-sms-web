@@ -21,10 +21,13 @@ export default class Stream {
             store.commit('client_id', Math.floor(Math.random() * 10000));
 
         this.socket = mqtt.connect(Url.get('websocket'), {
-            clientId: store.state.client_id
+            clientId: store.state.client_id,
+            username: store.state.username,
+            password: store.state.account_id
         });
 
         this.socket.on('connect', this.onConnect);
+        this.socket.on('error', this.onError);
         this.socket.on('message', this.handleMessage);
         this.socket.on('offline', this.onConnectionLost);
     }
@@ -35,11 +38,15 @@ export default class Stream {
         }
     }
 
+    onError(err) {
+        console.log("Failed to connect to mqtt websocket.", err);
+    }
+
     onConnect() {
         // Close connection on logout
         store.state.msgbus.$on('logout-btn', () => this.end());
 
-        console.log();
+        console.log('Connected to mqtt websocket...');
 
         this.subscribe(Stream.topicPrefix + store.state.account_id);
     }

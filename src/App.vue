@@ -411,6 +411,7 @@ export default {
             }, 1500);
 
             // Interval check to maintain socket
+            /* We use mqtt now :)
             setInterval(() => {
                 const last_ping = this.$store.state.last_ping;
 
@@ -432,6 +433,7 @@ export default {
                 // TODO slack like reconnection process
 
             }, 30 * 1000);
+            */
         },
 
         /**
