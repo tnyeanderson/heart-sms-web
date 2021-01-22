@@ -1,4 +1,4 @@
-web.test.sc {
+web.heart.lan {
   route /* {
     reverse_proxy http://localhost:8081
   }

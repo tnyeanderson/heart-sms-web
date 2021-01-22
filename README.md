@@ -6,7 +6,7 @@ The Pulse community was pretty great. This web app started out as a [third party
 
 This version of the web app is a fork of the official web app. As an open-source client, anyone is free to contribute and help improve the Heart experience. This web app has improved performance/load times, a cleaner architecture, and new features. It will be much easier to work with and improve, than the legacy web app.
 
-Before you will be able to use this, you should create a Heart account from the [Android app](https://github.com/tnyeanderson/heart-sms-android). To use this web app, you have two should build and run the web app locally, or deploy it to your own hosting location, using the build steps below.
+Before you will be able to use this, you should create a Heart account from the [Android app](https://github.com/tnyeanderson/heart-sms-android). To use this web app, you have should build and run the web app locally, or deploy it to your own hosting location, using the build steps below.
 
 ## Build setup
 
@@ -34,25 +34,41 @@ npm run build
 npm run build --report
 ```
 
-## 
+## Building docker container
+
+Even though the `heartsms/heart-sms-web` container is available on Docker Hub, I don't have CI/CD yet, so they might be outdated. If you are testing (or just want your own), you can build the docker image yourself.
+
+From project root, run:
+```
+npm run docker:build
+```
+
+This will create an image tagged `heartsms/heart-sms-web:staged`.
+
 
 ## Deploying to production with Docker
 
 Clone the repo or just copy the `docker-compose.yml` and `Caddyfile`.
 
-Edit the `Caddyfile` with your production urls. Then, start the container:
+Make a copy of `.api.env.example` named `.api.env` in the same directory as your `docker-compose.yml`.
+
+Open `.api.env` in your editor of choice and change the URLs to match your production URLs.
+
+Then, start the container:
 
 ```
 docker-compose up -d
 ```
 
-Once the container is up and running, be sure to edit `./heart-web-config/web-config.js` as explained in "Build setup" with your urls. Then start caddy:
+Edit the `Caddyfile` with your production urls. Then, start caddy (or run it as a service):
 
 ```
-caddy start
+caddy run
 ```
 
 Deployed!
+
+For a detailed guide on getting the entire Heart stack up and running, see [Getting Started](https://github.com/tnyeanderson/heart-sms-backend/tree/master/docs/getting-started.md)
 
 ## Contributing
 
