@@ -1,0 +1,13 @@
+dist/
+node_modules/
+tests/
+*.env*
+.dockerignore
+.gitignore
+babel.config.js
+jest.config.js
+Caddyfile
+docker-compose.yml
+Dockerfile
+README.md
+TODO.md
