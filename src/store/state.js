@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 export const KEYS  = {
     CONFIG: 'config',
+    USERNAME: 'username',
     ACCOUNT_ID: 'account_id',
     HASH: 'hash',
     SALT: 'salt',
@@ -31,6 +32,7 @@ const empty_str = "\"\"";
 
 export const state = {
     /* Persistent */
+    username: JSON.parse( window.localStorage.getItem(KEYS.USERNAME) || empty_str ),
     account_id: JSON.parse( window.localStorage.getItem(KEYS.ACCOUNT_ID) || empty_str ),
     hash: JSON.parse( window.localStorage.getItem(KEYS.HASH) || empty_str ),
     salt: JSON.parse( window.localStorage.getItem(KEYS.SALT) || empty_str ),
@@ -102,6 +104,7 @@ export const mutations = {
     unread_count: (state, unread_count) => state.unread_count = unread_count,
     full_theme: (state, full_theme) => state.full_theme = full_theme,
     sidebar_open: (state, sidebar_open) => state.sidebar_open = sidebar_open,
+    username: (state, username) => state.username = username,
     account_id: (state, account_id) => state.account_id = account_id,
     hash: (state, hash) => state.hash = hash,
     salt: (state, salt) => state.salt = salt,

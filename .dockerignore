@@ -1,0 +1,11 @@
+dist/
+node_modules/
+tests/
+*.env*
+.dockerignore
+.gitignore
+Caddyfile
+docker-compose.yml
+Dockerfile
+README.md
+TODO.md

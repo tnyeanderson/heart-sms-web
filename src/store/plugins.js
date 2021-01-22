@@ -4,10 +4,12 @@ import { KEYS } from '@/store/state.js';
 // called when the store is initialize
 const localStoreSync = store => {
     const local_items = {
+        'config': KEYS.CONFIG,
         'compose_contacts': KEYS.COMPOSE_CONTACTS,
         'contacts': KEYS.CONTACTS,
         'conversations': KEYS.CONVERSATIONS,
         'clearContacts': KEYS.CONTACTS,
+        'username': KEYS.USERNAME,
         'account_id': KEYS.ACCOUNT_ID,
         'hash': KEYS.HASH,
         'salt': KEYS.SALT,

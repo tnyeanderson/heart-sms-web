@@ -10,6 +10,10 @@
   "scripts": {
     "start-dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "docker:build": "sudo docker build -t heartsms/heart-sms-web:staged .",
+    "docker:build-latest": "sudo docker build -t heartsms/heart-sms-web:latest .",
+    "docker:push": "npm run docker:build-latest && sudo docker push heartsms/heart-sms-web:latest",
+    "docker:start": "sudo docker-compose up -d heart-sms-web",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "deploy": "npm run build; touch dist/CNAME; echo \"heartsms.app\" > dist/CNAME; push-dir --dir=dist --branch=gh-pages --cleanup"
@@ -23,8 +27,8 @@
     "jump.js": "^1.0.2",
     "linkifyjs": "^2.1.9",
     "lodash": "^4.17.15",
+    "mqtt": "^4.2.6",
     "object-hash": "^2.1.1",
-    "reconnecting-websocket": "^4.4.0",
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",
     "vue-flatpickr-component": "^8.1.6",

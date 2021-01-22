@@ -1,4 +1,4 @@
-import ReconnectingWebsocket from 'reconnecting-websocket';
+import mqtt from 'mqtt';
 import joypixels from 'emoji-toolkit';
 import router from '@/router/';
 import store from '@/store/';
@@ -8,103 +8,83 @@ export default class Stream {
     constructor() {
         this.socket = null;
         this.open();
-
-        this.has_disconnected = false;
-        this.disconnected_timeout = null;
     }
 
+    static topicPrefix = 'heartsms/';
+
     /**
-     * Open reconnecting websocket.
+     * Open reconnecting mqtt websocket.
      */
     open() {
         // Generate a client id for graceful reconnection if we don't have one
         if (!store.state.client_id)
             store.commit('client_id', Math.floor(Math.random() * 10000));
 
-        console.log(Url.get('websocket') + Url.getAccountParam() + "&client_id=" + store.state.client_id);
-
-        this.socket = new ReconnectingWebsocket(Url.get('websocket') + Url.getAccountParam() + "&client_id=" + store.state.client_id);
-
-        this.socket.addEventListener('open', () => {
-            // Close connection on logout
-            store.state.msgbus.$on('logout-btn', () => this.close());
-
-            if (this.has_disconnected) {
-                store.state.msgbus.$emit('refresh-btn');
-                Util.snackbar(i18n.t('api.back'));
-            }
-
-            if (this.disconnected_timeout != null) {
-                clearTimeout(this.disconnected_timeout);
-                this.disconnected_timeout = null;
-            }
-
-            this.has_disconnected = false;
-
-            const subscribe = JSON.stringify({
-                "command": "subscribe",
-                "identifier": JSON.stringify({
-                    "channel": "NotificationsChannel"
-                })
-            });
-
-            this.socket.send(subscribe);
+        this.socket = mqtt.connect(Url.get('websocket'), {
+            clientId: store.state.client_id,
+            username: store.state.username,
+            password: store.state.account_id
         });
 
-        this.socket.addEventListener('message', (e) => this.handleMessage(e));
-
-        this.socket.addEventListener('close', (e) => {
-            if (e.wasClean || e.code == 1001) // If not an error, ignore
-                return;
-
-            // if the websocket reconnects within 5 seconds, we won't show anything to the user
-            // if it takes longer than that, then we will notify the user that we are
-            // trying to reconnect.
-            this.disconnected_timeout = setTimeout(() => {
-                if (!this.has_disconnected)
-                    Util.snackbar(i18n.t('api.disconnected'));
-
-                this.has_disconnected = true;
-            }, 5 * 1000);
-        });
+        this.socket.on('connect', this.onConnect);
+        this.socket.on('error', this.onError);
+        this.socket.on('message', this.handleMessage);
+        this.socket.on('offline', this.onConnectionLost);
     }
 
-    /**
-     * Perminently close socket
-     */
     close() {
-        this.socket.close(1000, '', { keepClosed: true });
+        if (this.socket) {
+            this.socket.end();
+        }
     }
+
+    onError(err) {
+        console.log("Failed to connect to mqtt websocket.", err);
+    }
+
+    onConnect() {
+        // Close connection on logout
+        store.state.msgbus.$on('logout-btn', () => this.end());
+
+        console.log('Connected to mqtt websocket...');
+
+        this.subscribe(Stream.topicPrefix + store.state.account_id);
+    }
+
+    onConnectionLost() {
+        Util.snackbar(i18n.t('api.disconnected'));
+        store.state.msgbus.$emit('refresh-btn');
+        Util.snackbar(i18n.t('api.back'));
+    }
+
 
     /**
      * Handle incoming socket data
-     * @param e - socket event
+     * @param message - Paho Message
      */
-    handleMessage(e) {
-        if (e.data.indexOf("ping") != -1) { // Is keep alive event
-            // Store last ping to maintain data connection
-            store.commit('last_ping', Date.now() / 1000 >> 0);
-            return;
-        }
+    handleMessage(topic, message) {
+        // message is a buffer
+        var msg = JSON.parse(message.toString());
+        console.log(msg);
 
-        // Parse out JSON
-        const json = JSON.parse(e.data);
+        // Store last ping to maintain data connection
+        store.commit('last_ping', Date.now() / 1000 >> 0);
 
         // Ignore bad messages
-        if (typeof json.message == "undefined")
+        if (typeof msg == "undefined")
             return;
 
-        const operation = json.message.operation;
+        const operation = msg.operation;
 
         // Parse any emojis
-        if (typeof json.message.content.data != "undefined")
-            json.message.content.data = joypixels.toImage(
-                json.message.content.data
+        if (typeof msg.content.data != "undefined")
+            msg.content.data = joypixels.toImage(
+                msg.content.data
             );
 
 
         if (operation == "added_message") {
-            let message = json.message.content;
+            let message = msg.content;
             message.message_from = message.from;
             message = Crypto.decryptMessage(message);
 
@@ -115,20 +95,20 @@ export default class Stream {
 
             store.state.msgbus.$emit('newMessage', message);
         } else if (operation == "removed_message") {
-            let message = json.message.content;
+            let message = msg.content;
 
             SessionCache.deleteMessage(message.id);
 
             store.state.msgbus.$emit('deletedMessage', message.id);
         } else if (operation == "read_conversation") {
-            const id = json.message.content.id;
+            const id = msg.content.id;
 
             SessionCache.readConversation(id, 'index_public_unarchived');
             SessionCache.readConversation(id, 'index_archived');
 
             store.state.msgbus.$emit('conversationRead', id);
         } else if (operation == "updated_conversation") {
-            const conversation = Crypto.decryptConversation(json.message.content);
+            const conversation = Crypto.decryptConversation(msg.content);
             conversation.conversation_id = conversation.id; // Normalize ID
 
             if (conversation.snippet) {
@@ -142,27 +122,27 @@ export default class Stream {
 
             store.state.msgbus.$emit('newMessage', conversation);
         } else if (operation == "update_message_type") {
-            const id = json.message.content.id;
-            const message_type = json.message.content.message_type;
+            const id = msg.content.id;
+            const message_type = msg.content.message_type;
 
             SessionCache.updateMessageType(id, message_type);
             store.state.msgbus.$emit('updateMessageType-' + id, { message_type });
         } else if (operation == "added_conversation") {
-            const id = json.message.content.id;
+            const id = msg.content.id;
 
             SessionCache.invalidateConversations('index_public_unarchived');
             store.state.msgbus.$emit('addedConversation', { id });
         } else if (operation == "removed_conversation") {
-            const id = json.message.content.id;
+            const id = msg.content.id;
 
             SessionCache.removeConversation(id, 'index_public_unarchived');
             SessionCache.removeConversation(id, 'index_archived');
             SessionCache.removeConversation(id, 'index_private');
             store.state.msgbus.$emit('removedConversation', { id });
         } else if (operation == "archive_conversation") {
-            const id = json.message.content.id;
+            const id = msg.content.id;
 
-            if (json.message.content.archive) {
+            if (msg.content.archive) {
                 SessionCache.removeConversation(id, 'index_public_unarchived');
                 SessionCache.invalidateConversations('index_archived');
             } else {
