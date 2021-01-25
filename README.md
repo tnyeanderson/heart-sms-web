@@ -38,7 +38,7 @@ caddy run
 
 ## Build for development
 
-*You must have your backend development environment set up first. See [this guide](https://github.com/tnyeanderson/heart-sms-backend/blob/main/CONTRIBUTING.md)
+*You must have your backend development environment set up first. See [this guide](https://github.com/tnyeanderson/heart-sms-backend/blob/main/CONTRIBUTING.md)*
 
 Create a file at `public/config/web-config.js` and paste the following content: 
 ```
