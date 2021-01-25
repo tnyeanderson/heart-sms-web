@@ -10,7 +10,7 @@
   "scripts": {
     "start-dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "docker:build": "sudo docker build -t heartsms/heart-sms-web:staged .",
+    "docker:build": "sudo docker build -t heartsms/heart-sms-web:dev .",
     "docker:build-latest": "sudo docker build -t heartsms/heart-sms-web:latest .",
     "docker:push": "npm run docker:build-latest && sudo docker push heartsms/heart-sms-web:latest",
     "docker:start": "sudo docker-compose up -d heart-sms-web",
