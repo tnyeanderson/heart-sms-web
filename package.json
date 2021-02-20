@@ -15,8 +15,7 @@
     "docker:push": "npm run docker:build-latest && sudo docker push heartsms/heart-sms-web:latest",
     "docker:start": "sudo docker-compose up -d heart-sms-web",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "deploy": "npm run build; touch dist/CNAME; echo \"heartsms.app\" > dist/CNAME; push-dir --dir=dist --branch=gh-pages --cleanup"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@xkeshi/image-compressor": "^0.5.3",
@@ -52,7 +51,6 @@
     "grpc": "^1.24.5",
     "lint-staged": "^10.5.4",
     "node-sass": "^5.0.0",
-    "push-dir": "^0.4.1",
     "sass-loader": "^10.1.1",
     "sw-precache-webpack-plugin": "^0.11.5",
     "vue-template-compiler": "^2.6.10",
