@@ -54,10 +54,10 @@ var heartConfig = {
 Getting up and running is very easy. You will need `npm` installed:
 
 ```
-// install the dependencies
+# install the dependencies
 npm install
 
-// start the server at localhost:8081
+# start the server at localhost:8081
 npm run start-dev
 ```
 
