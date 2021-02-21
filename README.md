@@ -29,7 +29,7 @@ Then, start the container:
 docker-compose up -d
 ```
 
-Edit the `Caddyfile` with your production url. Then, start caddy (or run it as a service):
+Edit the `Caddyfile` with your production url and certificate paths. Then, start caddy (or run it as a service):
 
 ```
 caddy run
