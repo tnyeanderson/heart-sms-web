@@ -4,3 +4,4 @@
 - [ ] Upgrade vue to v3 once the migration build is released
 - [ ] Unit tests?
 - [ ] Use sjcl from npm instead of minified in /lib
+- [ ] Don't think hmacsha1-worker.js is being used

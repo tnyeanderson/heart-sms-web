@@ -26,10 +26,8 @@ FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Move files to config folder for bind mount
-COPY --from=build-stage /app/entrypoint.sh /root/entrypoint.sh
-RUN chmod +x /root/entrypoint.sh
+COPY --from=build-stage /app/entrypoint.sh /docker-entrypoint.d/99-entrypoint.sh
+RUN chmod +x /docker-entrypoint.d/99-entrypoint.sh
 
 EXPOSE 80
-
-ENTRYPOINT ["/root/entrypoint.sh"]
 

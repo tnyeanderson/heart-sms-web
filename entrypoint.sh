@@ -31,7 +31,7 @@ EOF
 # If a config file is present, use it
 if [ ! -f "$CONFIGPATH/$CONFIGNAME" ]; then
     # A config file does not yet exist
-    echo "Setting configuration"
+    echo "Creating $CONFIGNAME"
 
     # If a HEART_* environment variable isn't set, use the default value
     API_URL="${HEART_API_URL:-$DEFAULT_API_URL}"
@@ -41,5 +41,3 @@ if [ ! -f "$CONFIGPATH/$CONFIGNAME" ]; then
 
     outputtofile
 fi
-
-nginx -g "daemon off;"
