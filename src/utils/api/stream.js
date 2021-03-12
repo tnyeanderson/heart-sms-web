@@ -30,6 +30,9 @@ export default class Stream {
         this.socket.on('error', this.onError);
         this.socket.on('message', this.handleMessage);
         this.socket.on('offline', this.onConnectionLost);
+
+        // Close connection on logout
+        store.state.msgbus.$on('logout-btn', this.close);
     }
 
     close() {
@@ -43,9 +46,6 @@ export default class Stream {
     }
 
     onConnect() {
-        // Close connection on logout
-        store.state.msgbus.$on('logout-btn', () => this.end());
-
         console.log('Connected to mqtt websocket...');
 
         this.subscribe(Stream.topicPrefix + store.state.account_id);
