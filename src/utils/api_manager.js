@@ -58,7 +58,6 @@ export default class Api {
     }
 
     static get(url) {
-        console.log(url);
         return Api.agent.get(url);
     }
 

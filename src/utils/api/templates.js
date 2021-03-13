@@ -46,7 +46,7 @@ export default class Templates {
         let constructed_url = Url.get('create_template') + Url.getAccountParam();
 
         const promise = new Promise((resolve) => {
-            axios.post(constructed_url, request, { 'Content-Type': 'application/json' })
+            Api.post(constructed_url, request, { 'Content-Type': 'application/json' })
                 .then(response => { resolve(response) });
         });
 
@@ -57,7 +57,7 @@ export default class Templates {
         // eslint-disable-next-line camelcase
         const constructed_url = Url.get('update_template') + id + Url.getAccountParam() + '&text=' + text;
         const promise = new Promise((resolve) => {
-            axios.post(constructed_url)
+            Api.post(constructed_url)
                 .then(response => { resolve(response) });
         });
         return promise;
