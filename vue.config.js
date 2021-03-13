@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 module.exports = {
@@ -20,6 +21,6 @@ module.exports = {
                 dontCacheBustUrlsMatching: /\.\w{6}\./
             })
         ]
-    },
-    //chainWebpack: config => {}
+    }
+    // chainWebpack: config => {}
 };
