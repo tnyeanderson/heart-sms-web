@@ -18,7 +18,9 @@ export default class Stream {
     open() {
         // Generate a client id for graceful reconnection if we don't have one
         if (!store.state.client_id)
-            store.commit('client_id', Math.floor(Math.random() * 10000));
+            store.commit('client_id', 'web-' + Math.floor(Math.random() * 10000));
+
+        console.log(store.state.client_id)
 
         this.socket = mqtt.connect(Url.get('websocket'), {
             clientId: store.state.client_id,

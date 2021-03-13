@@ -26,7 +26,7 @@ export default class Api {
         })
     });
 
-    static stream = Stream
+    static Stream = Stream
 
     static account = Account
     static autoReplies = AutoReply
@@ -58,6 +58,7 @@ export default class Api {
     }
 
     static get(url) {
+        console.log(url);
         return Api.agent.get(url);
     }
 
