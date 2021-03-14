@@ -5,9 +5,11 @@
                 {{ $t('account.upgrade_subscription') }}
             </div>
             <h4>Account Statistics</h4>
-            <div v-mdl class="click-item" @click="routeTo('statistics')">
-                View Account Statistics
-            </div>
+            <!-- TODO: Make a nice lil HTML page? :)
+                <div v-mdl class="click-item" @click="routeTo('statistics')">
+                    View Account Statistics
+                </div>
+            -->
             <div v-mdl class="item">
                 {{ account_counts.message_count }} Messages
             </div>
@@ -106,7 +108,7 @@ export default {
         },
 
         routeTo (route) {
-            // FIXME: No links to pulse
+            // TODO: Dead code... we no longer show these links
             if (route == 'password') {
                 window.open('https://home.pulsesms.app/forgot_password.html','_blank');
             } else if (route == 'statistics') {

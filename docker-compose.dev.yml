@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  heart-sms-web:
+    container_name: heart-sms-web
+    image: heartsms/heart-sms-web:dev
+    init: true
+    restart: always
+    ports:
+      - "127.0.0.1:8081:80"
+    env_file: 
+      # /config/web-config.json is derived from .api.env
+      - .api.env

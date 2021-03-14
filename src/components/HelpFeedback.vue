@@ -63,12 +63,7 @@ export default {
             loading: false,
             urls: {
                 help: 'https://github.com/tnyeanderson/heart-sms-web/issues',
-                overview: 'https://github.com/tnyeanderson/heart-sms-web',
-                // FIXME: Remove
-                twitter: 'https://twitter.com/pulsesms',
-                email: 'mailto:pulsesmsapp@gmail.com?subject=Pulse%20SMS',
-                privacy: 'https://home.pulsesms.app/privacy.html',
-                tos: 'https://home.pulsesms.app/tos.html'
+                overview: 'https://github.com/tnyeanderson/heart-sms-web'
             }
         };
     },

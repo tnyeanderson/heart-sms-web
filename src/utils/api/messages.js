@@ -169,7 +169,6 @@ export default class Messages {
                             send(file, id);
 
                             // Make url
-                            // TODO: What is the point of this??
                             const constructed_url = Url.get('media') + id + Url.getAccountParam();
                             Api.get(constructed_url);
 

@@ -12,6 +12,7 @@
     "docker:build-latest": "sudo docker build -t heartsms/heart-sms-web:latest .",
     "docker:push": "npm run docker:build-latest && sudo docker push heartsms/heart-sms-web:latest",
     "docker:start": "sudo docker-compose up -d heart-sms-web",
+    "docker:start-dev": "sudo docker-compose -f docker-compose.dev.yml up -d",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

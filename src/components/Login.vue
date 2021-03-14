@@ -22,8 +22,8 @@
                 </div>
             </form>
 
-            <!-- FIXME: Remove this -->
-            <a href="https://home.pulsesms.app/forgot_password.html" target="_blank">{{ $t('login.forgotpassword') }}</a>
+            <!-- TODO: Create a process for forgotten password (don't think it's possible because we implemented perfect secrecy) and link it here -->
+            <!-- <a href="https://home.pulsesms.app/forgot_password.html" target="_blank">{{ $t('login.forgotpassword') }}</a> -->
             <br>
             <!-- eslint-disable vue/no-v-html -->
             <a href="https://home.pulsesms.app/overview/platform-ios.html" target="_blank" v-html="$t('login.iphone')"></a>
