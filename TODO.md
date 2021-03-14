@@ -6,5 +6,5 @@
 - [ ] Use sjcl from npm instead of minified in /lib
 - [ ] Don't think hmacsha1-worker.js is being used
 - [x] Update client-id
-- [ ] Fix SPA routing
+- [x] Fix SPA routing
 - [x] docker-compose.dev.yml

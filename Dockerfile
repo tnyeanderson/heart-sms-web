@@ -26,8 +26,12 @@ FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Move files to config folder for bind mount
-COPY --from=build-stage /app/entrypoint.sh /docker-entrypoint.d/99-entrypoint.sh
+COPY --from=build-stage /app/docker/entrypoint.sh /docker-entrypoint.d/99-entrypoint.sh
 RUN chmod +x /docker-entrypoint.d/99-entrypoint.sh
+
+# Remove the default config and copy our own
+RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /app/docker/nginx-vue.conf /etc/nginx/conf.d/nginx-vue.conf
 
 EXPOSE 80
 
