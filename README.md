@@ -40,6 +40,8 @@ caddy run
 
 *You must have your backend development environment set up first. See [this guide](https://github.com/tnyeanderson/heart-sms-backend/blob/main/CONTRIBUTING.md)*
 
+To use the docker, development environment, see [Building docker container](#building-docker-container)
+
 Create a file at `public/config/web-config.js` and paste the following content: 
 ```
 var heartConfig = {
@@ -80,6 +82,11 @@ npm run docker:build
 ```
 
 This will create an image tagged `heartsms/heart-sms-web:dev`.
+
+Then you can run the dev container:
+```
+npm run docker:start-dev
+```
 
 
 ## Contributing
