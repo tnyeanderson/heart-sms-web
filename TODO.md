@@ -5,3 +5,6 @@
 - [ ] Unit tests?
 - [ ] Use sjcl from npm instead of minified in /lib
 - [ ] Don't think hmacsha1-worker.js is being used
+- [ ] Update client-id
+- [ ] Fix SPA routing
+- [ ] docker-compose.dev.yml

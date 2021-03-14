@@ -6,7 +6,7 @@
                 There is a very extensive FAQ section for the Pulse app on which Heart is based. Before opening an issue, do a quick search to free up time for both of us. You will probably find your answer, very easily.<br><br>If you don't find what you are looking for, feel free to reach out and I will be more than happy to get back to you as quickly as I am able.
             </div>
         </div>
-        <div class="click-item" @click="routeTo('https://messenger.klinkerapps.com/help')">
+        <div class="click-item" :href="urls.help" @click.stop.prevent="routeTo(urls.help)">
             <div class="mdl-color-text--grey-900">
                 Help Page
             </div>
@@ -16,7 +16,7 @@
         </div>
 
         <h4>Information</h4>
-        <div class="click-item mdl-color-text--grey-900" @click="routeTo('https://github.com/klinker24/pulse-sms-web/releases')">
+        <div class="click-item mdl-color-text--grey-900" @click="routeTo('https://github.com/tnyeanderson/heart-sms-web/releases')">
             Web App Changelog
         </div>
         <div class="click-item mdl-color-text--grey-900" @click="routeTo('https://github.com/klinker-apps/pulse-sms-issues/issues/344')">
@@ -49,14 +49,27 @@
 </template>
 
 <script>
+import License from '@/components/License';
 
 export default {
     name: 'HelpFeedback',
+    components: {
+        License
+    },
 
     data () {
         return {
-            title: "Help and Feedback",
+            title: 'Help and Feedback',
             loading: false,
+            urls: {
+                help: 'https://github.com/tnyeanderson/heart-sms-web/issues',
+                overview: 'https://github.com/tnyeanderson/heart-sms-web',
+                // FIXME: Remove
+                twitter: 'https://twitter.com/pulsesms',
+                email: 'mailto:pulsesmsapp@gmail.com?subject=Pulse%20SMS',
+                privacy: 'https://home.pulsesms.app/privacy.html',
+                tos: 'https://home.pulsesms.app/tos.html'
+            }
         };
     },
 
@@ -66,7 +79,7 @@ export default {
 
     methods: {
         routeTo (route) {
-            window.open(route,'_blank');
+            window.open(route, '_blank');
         }
     }
 };
